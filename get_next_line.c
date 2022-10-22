@@ -11,41 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
-
-
-//per test
-#include <unistd.h>
-//per test
-
 /*
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	int		i;
-	int		x;
-	char	*p;
-
-	i = 0;
-	p = (char *) malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1)));
-	x = 0;
-	if (!p)
-		return (NULL);
-	while (s1[x])
-	{
-		p[x] = s1[x];
-		x++;
-	}
-	while (s2[i])
-	{
-		p[x] = s2[i];
-		x++;
-		i++;
-	}
-	p[x] = '\0';
-	return (p);
-}
-
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
@@ -58,25 +24,55 @@ size_t	ft_strlen(const char *s)
 
 
 
-char	*ft_strdup(const char *s)
+void	*my_malloc(int size)
 {
-	char	*p;
-	size_t	i;
+	void	*p;
 
-	p = (char *) malloc(sizeof(char) * (ft_strlen(s) + 1));
+	p = malloc (size);
 	if (!p)
 		return (NULL);
-	i = 0;
-	while (i < ft_strlen(s))
-	{
-		p[i] = s[i];
-		i++;
-	}
-	p[i] = '\0';
 	return (p);
 }
 
+
+
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+
+
+
+	int		i;
+	int		x;
+	char	*p;
+
+	i = 0;
+	p = (char *) my_malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1 ))); // malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1)));
+	x = 0;
+	while (s1[x])
+	{
+		p[x] = s1[x];
+		x++;
+	}
+	while (s2[i])
+	{
+		p[x] = s2[i];
+		x++;
+		i++;
+	}
+	p[x] = '\0';
+	free ((void *)s1);
+	free ((void *)s2);
+	return (p);
+}
+
+
+
+
 */
+
+
+
 
 char *taglia (char *s)
 {
@@ -88,7 +84,7 @@ char *taglia (char *s)
 	j = 0;
 	while (s[i] != '\n')
 		i++;
-	str = malloc (sizeof(char) * (ft_strlen(s) - i + 1));
+	str = my_malloc(sizeof(char) * (ft_strlen(s) - i));
 	i++;
 	while (s[i])
 	{
@@ -97,7 +93,14 @@ char *taglia (char *s)
 		i++;
 	}
 	str[j] = '\0';
-	free (s);
+	if(str[0] == '\0')		//aggiunta a csao
+	{
+		free(s);
+		free(str);
+		return (NULL);
+	}
+	else
+		free (s);
 	return (str);
 }
 
@@ -106,9 +109,7 @@ char *scrivi(int x, char *s)
 {
 	char *d;
 
-	d = malloc(x + 2);
-	if (!d)
-		return (NULL);
+	d = my_malloc(x + 2);
 	x = 0;
 	while (s[x] != '\n')
 	{
@@ -130,17 +131,19 @@ char *get_next_line(int fd)
 	char		*d;
 	char		*tmp;
 	int	i;
-	int x = 0;
-
+	int x;
+	
+	x = 0;
 	i = 1;
 	if (s == NULL)
-		s = ft_strdup("");
+	{
+		s = (char *) my_malloc(1);
+		s[0] = '\0';
+	}
 	while (i > 0)
 	{
 		d = NULL;
-		tmp = (char *) malloc (sizeof(char) * BUFFER_SIZE + 1);
-			if (!tmp)
-				return (NULL);
+		tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
 		i = read(fd, tmp, BUFFER_SIZE);
 		tmp[i] = '\0';
 		s = ft_strjoin (s, tmp);
@@ -153,23 +156,33 @@ char *get_next_line(int fd)
 			return (d);
 		}
 		x = 0;
-		free (tmp);
 	}
-	free (s);
-	return (d);
+	if (s == NULL) //togliere questa riga per i leaks
+		free (s);
+	return (NULL);
 }
-
-
 /*
 int main()
 {
 	int fd;
 	fd = open("prova.txt", O_RDONLY);
+	char *tmp;
+	tmp = get_next_line(fd);
+	printf("%s", tmp);
+	free (tmp);
+	tmp = get_next_line(fd);
+	printf("%s", tmp);
+	free (tmp);
+	tmp = get_next_line(fd);
+	printf("%s", tmp);
+	free (tmp);
+	tmp = get_next_line(fd);
+	printf("%s", tmp);
+	free (tmp);
+	tmp = get_next_line(fd);
+
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
+	free (tmp);
 }*/

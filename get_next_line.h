@@ -15,14 +15,21 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include <stdio.h>
+#include <fcntl.h>
 
 
 char	*get_next_line(int fd);
 //void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 //void	ft_bzero(void *s, size_t n);
-char	*ft_strdup(const char *s);
+//char	*ft_strdup(const char *s);
+void	*my_malloc(int size);
+char *taglia (char *s);
+char *scrivi(int x, char *s);
+
+
 
 
 #endif
