@@ -27,7 +27,7 @@ char	*ft_strjoin(char *s1, char *s2);
 //char	*ft_strdup(const char *s);
 void	*my_malloc(int size);
 char *taglia (char *s);
-char *scrivi(int x, char *s);
+char *scrivi(int x, char *s, int i);
 
 
 

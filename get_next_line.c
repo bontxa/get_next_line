@@ -82,7 +82,7 @@ char *taglia (char *s)
 
 	i = 0;
 	j = 0;
-	while (s[i] != '\n')
+	while (s[i] != '\n' && s[i])
 		i++;
 	str = my_malloc(sizeof(char) * (ft_strlen(s) - i));
 	i++;
@@ -105,20 +105,28 @@ char *taglia (char *s)
 }
 
 
-char *scrivi(int x, char *s)
+char *scrivi(int x, char *s, int i)
 {
 	char *d;
 
-	d = my_malloc(x + 2);
+	if (i == 0)
+		d = my_malloc(x + 1);
+	else
+		d = my_malloc(x + 2);
 	x = 0;
-	while (s[x] != '\n')
+	while (s[x] != '\n' && s[x])
 	{
 		d[x] = s[x];
 		x++;
 	}
-	d[x] = '\n';
-	x++;
+	if (s[x] == '\n')
+	{
+		d[x] = '\n';
+		x++;
+	}
 	d[x] = '\0';
+	if (i == 0)
+		free(s);
 	return (d);
 }
 
@@ -140,25 +148,65 @@ char *get_next_line(int fd)
 		s = (char *) my_malloc(1);
 		s[0] = '\0';
 	}
+
+	if (fd < 0)
+		return (0);
+
 	while (i > 0)
 	{
 		d = NULL;
 		tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
 		i = read(fd, tmp, BUFFER_SIZE);
+
+		if (i < 0)
+		{
+			free (tmp);
+			return (NULL);
+		}
+		if (!tmp)
+		{
+			free (tmp);
+			free (s);
+			return (NULL);
+		}
+
+
 		tmp[i] = '\0';
 		s = ft_strjoin (s, tmp);
+
+
+			if (s == NULL)
+			{
+				free (s);
+				return (NULL);
+			}
+
+
+
+
+
 		while (s[x] != '\n' && s[x])
 			x++;
-		if (s[x] == '\n')
+		if (s[x] == '\n' || i == 0)
 		{
-			d = scrivi(x, s);
-			s = taglia (s);
+			d = scrivi(x, s, i);
+			if (i != 0)
+				s = taglia (s);
+
+
+			/*if (s == NULL)
+				free (s);*/
+
+
 			return (d);
 		}
+		/*else
+			s = taglia (s);*/
+
 		x = 0;
 	}
-	if (s == NULL) //togliere questa riga per i leaks
-		free (s);
+	//if (s == NULL) //togliere questa riga per i leaks
+		//free (s);
 	return (NULL);
 }
 /*
@@ -184,5 +232,5 @@ int main()
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
-	free (tmp);
+	//free (tmp);
 }*/

@@ -32,6 +32,15 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*p;
 
 	i = 0;
+
+			if (s1[0] == '\0' && s2[0] == '\0')
+			{
+				free(s1);
+				free(s2);
+				return (NULL);
+			}
+
+
 	p = (char *) my_malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1 ))); // malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1)));
 	x = 0;
 	/*if (!p)
@@ -53,8 +62,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (p);
 }
 
-
 /*
+
 char	*ft_strdup(const char *s)
 {
 	char	*p;
