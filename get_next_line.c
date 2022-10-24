@@ -84,7 +84,7 @@ char *taglia (char *s)
 	j = 0;
 	while (s[i] != '\n' && s[i])
 		i++;
-	str = my_malloc(sizeof(char) * (ft_strlen(s) - i));
+	str = my_malloc(sizeof(char) * (ft_strlen(s) - i + 1));
 	i++;
 	while (s[i])
 	{
@@ -93,13 +93,13 @@ char *taglia (char *s)
 		i++;
 	}
 	str[j] = '\0';
-	if(str[0] == '\0')		//aggiunta a csao
+	/*if(str[0] == '\0')		//aggiunta a csao
 	{
 		free(s);
 		free(str);
 		return (NULL);
 	}
-	else
+	else*/
 		free (s);
 	return (str);
 }
@@ -109,10 +109,10 @@ char *scrivi(int x, char *s, int i)
 {
 	char *d;
 
-	if (i == 0)
-		d = my_malloc(x + 1);
-	else
+	if (s[i] == '\n')
 		d = my_malloc(x + 2);
+	else
+		d = my_malloc(x + 1);
 	x = 0;
 	while (s[x] != '\n' && s[x])
 	{
@@ -136,7 +136,7 @@ char *scrivi(int x, char *s, int i)
 char *get_next_line(int fd)
 {
 	static char *s;
-	char		*d;
+	//char		*d;
 	char		*tmp;
 	int	i;
 	int x;
@@ -154,7 +154,7 @@ char *get_next_line(int fd)
 
 	while (i > 0)
 	{
-		d = NULL;
+		//d = NULL;
 		tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
 		i = read(fd, tmp, BUFFER_SIZE);
 
@@ -189,7 +189,7 @@ char *get_next_line(int fd)
 			x++;
 		if (s[x] == '\n' || i == 0)
 		{
-			d = scrivi(x, s, i);
+			tmp = scrivi(x, s, i);
 			if (i != 0)
 				s = taglia (s);
 
@@ -198,7 +198,7 @@ char *get_next_line(int fd)
 				free (s);*/
 
 
-			return (d);
+			return (tmp);
 		}
 		/*else
 			s = taglia (s);*/
