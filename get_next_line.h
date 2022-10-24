@@ -6,7 +6,7 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:53:10 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/24 18:22:41 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:40:50 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char *null_cond2(char *s, int i, int fd);
 void	*my_free(char *s);
 char *splitjoin(char *s1, char *s2, char *p);
 char *creatmp(int fd, int i);
+char	*ft_leggi(int fd, int *i);
 
 
 

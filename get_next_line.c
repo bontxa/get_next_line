@@ -6,7 +6,7 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:41:45 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/24 18:24:25 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:43:38 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,19 @@ char *scrivi(int x, char *s)
 
 
 
+char	*ft_leggi(int fd, int *i)
+{
+	char	*tmp;
+	int		a;
 
-
+	tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
+		a = read(fd, tmp, BUFFER_SIZE);
+		if (a < 0 || fd < 0)
+			return (my_free(tmp));
+		tmp[a] = '\0';
+		*i = a;
+	return (tmp);
+}
 
 
 char *get_next_line(int fd)
@@ -180,11 +191,14 @@ char *get_next_line(int fd)
 	while (i > 0)
 	{
 		x = 0;
-		tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
+		tmp = ft_leggi(fd, &i);
+		//if (tmp == NULL)
+		//	return (NULL);
+		/*tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
 		i = read(fd, tmp, BUFFER_SIZE);
 		if (i < 0 || fd < 0)
 			return (my_free(tmp));
-		tmp[i] = '\0';
+		tmp[i] = '\0';*/
 		s = ft_strjoin (s, tmp);
 		if (s == NULL)
 			return (my_free(s));
