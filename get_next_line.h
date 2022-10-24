@@ -6,7 +6,7 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:53:10 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/24 09:26:10 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:08:35 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ char	*ft_strjoin(char *s1, char *s2);
 void	*my_malloc(int size);
 char *taglia (char *s);
 char *scrivi(int x, char *s); //, int i);
+char *null_cond2(char *s, int i, int fd);
+void	*my_free(char *s);
+char *splitjoin(char *s1, char *s2, char *p);
 
 
 

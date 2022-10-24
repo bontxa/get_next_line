@@ -6,7 +6,7 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:41:45 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/24 09:25:47 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:09:36 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,6 @@ char *taglia (char *s)
 		i++;
 	}
 	str[j] = '\0';
-	/*if(str[0] == '\0')		//aggiunta a csao
-	{
-		free(s);
-		free(str);
-		return (NULL);
-	}
-	else*/
 	free (s);
 	return (str);
 }
@@ -128,7 +121,35 @@ char *scrivi(int x, char *s)
 	d[x] = '\0';
 	return (d);
 }
+/*
+char *null_cond2(char *s, int i, int fd)
+{
+	int x;
+	char *tmp;
 
+	x = 0;
+	while (i > 0)
+	{
+		tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
+		i = read(fd, tmp, BUFFER_SIZE);
+		if (i < 0) // || fd < 0)
+			return (my_free(tmp));
+		tmp[i] = '\0';
+		s = ft_strjoin (s, tmp);
+		if (s == NULL)
+			return (s); //(my_free(s));
+		while (s[x] != '\n' && s[x])
+			x++;
+		if (s[x] == '\n' || i == 0)
+		{
+			tmp = scrivi(x, s);
+			s = taglia (s);
+			return (tmp);
+		}
+		x = 0;
+	}
+	return (NULL);
+}*/
 
 
 
@@ -141,35 +162,21 @@ char *get_next_line(int fd)
 
 	x = 0;
 	i = 1;
-	if (s == NULL)
+	/*if (s == NULL)
 	{
 		s = (char *) my_malloc(1);
 		s[0] = '\0';
-	}
-	if (fd < 0)
-		return (0);
+	}*/
 	while (i > 0)
 	{
 		tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
 		i = read(fd, tmp, BUFFER_SIZE);
-		if (i < 0)
-		{
-			free (tmp);
-			return (NULL);
-		}
-		if (!tmp)
-		{
-			free (tmp);
-			free (s);
-			return (NULL);
-		}
+		if (i < 0 || fd < 0)
+			return (my_free(tmp));
 		tmp[i] = '\0';
 		s = ft_strjoin (s, tmp);
 		if (s == NULL)
-		{
-			free (s);
-			return (NULL);
-		}
+			return (my_free(s));
 		while (s[x] != '\n' && s[x])
 			x++;
 		if (s[x] == '\n' || i == 0)

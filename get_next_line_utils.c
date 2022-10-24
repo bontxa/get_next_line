@@ -5,11 +5,18 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (s == NULL)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
 }
 
+void	*my_free(char *s)
+{
+	free (s);
+	return (NULL);
+}
 
 
 void	*my_malloc(int size)
@@ -22,29 +29,13 @@ void	*my_malloc(int size)
 	return (p);
 }
 
-
-
-
-char	*ft_strjoin(char *s1, char *s2)
+char *splitjoin(char *s1, char *s2, char *p)
 {
-	int		i;
-	int		x;
-	char	*p;
+	int i;
+	int x;
 
 	i = 0;
-
-			if (s1[0] == '\0' && s2[0] == '\0')
-			{
-				free(s1);
-				free(s2);
-				return (NULL);
-			}
-
-
-	p = (char *) my_malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1 ))); // malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1)));
 	x = 0;
-	/*if (!p)
-		return (NULL);*/
 	while (s1[x])
 	{
 		p[x] = s1[x];
@@ -57,28 +48,36 @@ char	*ft_strjoin(char *s1, char *s2)
 		i++;
 	}
 	p[x] = '\0';
-	free ((void *)s1);
-	free ((void *)s2);
 	return (p);
 }
 
-/*
 
-char	*ft_strdup(const char *s)
+
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*p;
-	size_t	i;
 
-	p = (char *) malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!p)
-		return (NULL);
-	i = 0;
-	while (i < ft_strlen(s))
+	if (s1 == NULL)
 	{
-		p[i] = s[i];
-		i++;
+		s1 = (char *) my_malloc(1);
+		s1[0] = '\0';
 	}
-	p[i] = '\0';
+
+
+	/*if (s1 == NULL)
+		s1 = my_malloc(1);
+
+	if (s2 == NULL)*/
+	if (s1[0] == '\0' && s2[0] == '\0')
+	{
+		free(s1);
+		free(s2);
+		return (NULL);
+	}
+	p = (char *) my_malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1 )));
+	p = splitjoin(s1, s2, p);
+	free (s1);
+	free (s2);
 	return (p);
-}*/
+}
 
