@@ -6,7 +6,7 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:41:45 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/24 16:09:36 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:24:25 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,47 @@ char *taglia (char *s)
 }
 
 
+
+/*
+char *scrivi(int x, char *s, int i)
+{
+	char *d;
+
+
+	while (s[x] != '\n' && s[x])
+		x++;
+	if (s[x] == '\n' || i == 0)
+	{
+		if (s[x] == '\n')
+			d = my_malloc(x + 2);
+		else
+			d = my_malloc(x + 1);
+		x = 0;
+		while (s[x] != '\n' && s[x])
+		{
+			d[x] = s[x];
+			x++;
+		}
+		if (s[x] == '\n')
+		{
+			d[x] = '\n';
+			x++;
+		}
+		d[x] = '\0';
+	}
+
+
+
+
+	return (d);
+}
+
+*/
+
+
+
+
+
 char *scrivi(int x, char *s)
 {
 	char *d;
@@ -121,35 +162,10 @@ char *scrivi(int x, char *s)
 	d[x] = '\0';
 	return (d);
 }
-/*
-char *null_cond2(char *s, int i, int fd)
-{
-	int x;
-	char *tmp;
 
-	x = 0;
-	while (i > 0)
-	{
-		tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
-		i = read(fd, tmp, BUFFER_SIZE);
-		if (i < 0) // || fd < 0)
-			return (my_free(tmp));
-		tmp[i] = '\0';
-		s = ft_strjoin (s, tmp);
-		if (s == NULL)
-			return (s); //(my_free(s));
-		while (s[x] != '\n' && s[x])
-			x++;
-		if (s[x] == '\n' || i == 0)
-		{
-			tmp = scrivi(x, s);
-			s = taglia (s);
-			return (tmp);
-		}
-		x = 0;
-	}
-	return (NULL);
-}*/
+
+
+
 
 
 
@@ -160,15 +176,10 @@ char *get_next_line(int fd)
 	int	i;
 	int x;
 
-	x = 0;
 	i = 1;
-	/*if (s == NULL)
-	{
-		s = (char *) my_malloc(1);
-		s[0] = '\0';
-	}*/
 	while (i > 0)
 	{
+		x = 0;
 		tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
 		i = read(fd, tmp, BUFFER_SIZE);
 		if (i < 0 || fd < 0)
@@ -185,10 +196,22 @@ char *get_next_line(int fd)
 			s = taglia (s);
 			return (tmp);
 		}
-		x = 0;
 	}
 	return (NULL);
 }
+
+
+
+
+// char *prova(char *s, int x)
+// {
+// 	if (s == NULL)
+// 			return (my_free(s));
+// 		while (s[x] != '\n' && s[x])
+// 			x++;
+// }
+
+
 
 /*
 int main()

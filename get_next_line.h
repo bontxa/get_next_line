@@ -6,7 +6,7 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:53:10 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/24 15:08:35 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:22:41 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-
+//char *ft_lif(char *s, char *tmp, int x, int i);
 char	*get_next_line(int fd);
 //void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *s);
@@ -31,6 +31,8 @@ char *scrivi(int x, char *s); //, int i);
 char *null_cond2(char *s, int i, int fd);
 void	*my_free(char *s);
 char *splitjoin(char *s1, char *s2, char *p);
+char *creatmp(int fd, int i);
+
 
 
 
