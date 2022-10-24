@@ -6,7 +6,7 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:41:45 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/21 18:41:16 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/24 09:25:47 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ char *taglia (char *s)
 	j = 0;
 	while (s[i] != '\n' && s[i])
 		i++;
+	if (s[i] == '\n')
+		i++;
 	str = my_malloc(sizeof(char) * (ft_strlen(s) - i + 1));
-	i++;
 	while (s[i])
 	{
 		str[j] = s[i];
@@ -100,16 +101,16 @@ char *taglia (char *s)
 		return (NULL);
 	}
 	else*/
-		free (s);
+	free (s);
 	return (str);
 }
 
 
-char *scrivi(int x, char *s, int i)
+char *scrivi(int x, char *s)
 {
 	char *d;
 
-	if (s[i] == '\n')
+	if (s[x] == '\n')
 		d = my_malloc(x + 2);
 	else
 		d = my_malloc(x + 1);
@@ -125,8 +126,6 @@ char *scrivi(int x, char *s, int i)
 		x++;
 	}
 	d[x] = '\0';
-	if (i == 0)
-		free(s);
 	return (d);
 }
 
@@ -136,11 +135,10 @@ char *scrivi(int x, char *s, int i)
 char *get_next_line(int fd)
 {
 	static char *s;
-	//char		*d;
 	char		*tmp;
 	int	i;
 	int x;
-	
+
 	x = 0;
 	i = 1;
 	if (s == NULL)
@@ -148,16 +146,12 @@ char *get_next_line(int fd)
 		s = (char *) my_malloc(1);
 		s[0] = '\0';
 	}
-
 	if (fd < 0)
 		return (0);
-
 	while (i > 0)
 	{
-		//d = NULL;
 		tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
 		i = read(fd, tmp, BUFFER_SIZE);
-
 		if (i < 0)
 		{
 			free (tmp);
@@ -169,46 +163,26 @@ char *get_next_line(int fd)
 			free (s);
 			return (NULL);
 		}
-
-
 		tmp[i] = '\0';
 		s = ft_strjoin (s, tmp);
-
-
-			if (s == NULL)
-			{
-				free (s);
-				return (NULL);
-			}
-
-
-
-
-
+		if (s == NULL)
+		{
+			free (s);
+			return (NULL);
+		}
 		while (s[x] != '\n' && s[x])
 			x++;
 		if (s[x] == '\n' || i == 0)
 		{
-			tmp = scrivi(x, s, i);
-			if (i != 0)
-				s = taglia (s);
-
-
-			/*if (s == NULL)
-				free (s);*/
-
-
+			tmp = scrivi(x, s);
+			s = taglia (s);
 			return (tmp);
 		}
-		/*else
-			s = taglia (s);*/
-
 		x = 0;
 	}
-	//if (s == NULL) //togliere questa riga per i leaks
-		//free (s);
 	return (NULL);
 }
+
 /*
 int main()
 {
