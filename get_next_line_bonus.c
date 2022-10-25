@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:41:45 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/25 09:02:33 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:24:59 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*ft_leggi(int fd, int *i)
 
 char	*get_next_line(int fd)
 {
-	static char	*s;
+	static char	*s[1024];
 	char		*tmp;
 	int			i;
 	int			x;
@@ -85,15 +85,15 @@ char	*get_next_line(int fd)
 	{
 		x = 0;
 		tmp = ft_leggi(fd, &i);
-		s = ft_strjoin (s, tmp);
-		if (s == NULL)
-			return (my_free(s));
-		while (s[x] != '\n' && s[x])
+		s[fd] = ft_strjoin (s[fd], tmp);
+		if (s[fd] == NULL)
+			return (my_free(s[fd]));
+		while (s[fd][x] != '\n' && s[fd][x])
 			x++;
-		if (s[x] == '\n' || i == 0)
+		if (s[fd][x] == '\n' || i == 0)
 		{
-			tmp = scrivi(x, s);
-			s = taglia (s);
+			tmp = scrivi(x, s[fd]);
+			s[fd] = taglia (s[fd]);
 			return (tmp);
 		}
 	}
