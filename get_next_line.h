@@ -6,7 +6,7 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:53:10 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/25 09:06:58 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:27:39 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define GET_NEXT_LINE_H
 # include <unistd.h>
 # include <stdlib.h>
-# include <sys/types.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);

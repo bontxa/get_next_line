@@ -6,11 +6,11 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 09:03:11 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/25 11:28:36 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/28 08:30:15 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {

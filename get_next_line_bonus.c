@@ -6,11 +6,11 @@
 /*   By: aboncine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:41:45 by aboncine          #+#    #+#             */
-/*   Updated: 2022/10/25 12:24:59 by aboncine         ###   ########.fr       */
+/*   Updated: 2022/10/28 08:29:20 by aboncine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*taglia(char *s)
 {
@@ -66,7 +66,7 @@ char	*ft_leggi(int fd, int *i)
 
 	tmp = (char *) my_malloc (sizeof(char) * BUFFER_SIZE + 1);
 	a = read(fd, tmp, BUFFER_SIZE);
-	if (a < 0 || fd < 0)
+	if (a < 0 || fd < 0 || fd > 1024)
 		return (my_free(tmp));
 	tmp[a] = '\0';
 	*i = a;
